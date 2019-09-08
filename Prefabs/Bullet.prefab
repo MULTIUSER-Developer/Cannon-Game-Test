@@ -68,7 +68,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1715393815
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Time: 1
   m_Parameters:
     serializedVersion: 3
@@ -90,7 +90,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.23584908, g: 0, b: 0, a: 1}
+      key0: {r: 1, g: 0.4408486, b: 0, a: 1}
       key1: {r: 1, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -198,7 +198,7 @@ SpriteRenderer:
   m_SortingLayerID: 1715393815
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b4c3a5a569cd777448d6234f4a4ae980, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bb9504e0904ed54984a31ac55e9e626, type: 3}
   m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -221,7 +221,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.6589557
+  m_Mass: 2.3627326
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 3
@@ -243,9 +243,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05211079, y: 0.39951587}
+  m_Offset: {x: 0.020878792, y: 0.0039024353}
   serializedVersion: 2
-  m_Radius: 1.4533575
+  m_Radius: 1.7344522
 --- !u!114 &8829865283918253582
 MonoBehaviour:
   m_ObjectHideFlags: 0

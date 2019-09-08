@@ -34,14 +34,14 @@ public class CameraController : MonoBehaviour
         {
             cameraMove.x -= MoveSpeed();
         }
-        if ((Input.mousePosition.y > screenHeight - offset) && transform.position.y < minMaxYPosition.y)
+        /* if ((Input.mousePosition.y > screenHeight - offset) && transform.position.y < minMaxYPosition.y)
         {
             cameraMove.y += MoveSpeed();
         }
         if ((Input.mousePosition.y < offset) && transform.position.y > minMaxYPosition.x)
         {
             cameraMove.y -= MoveSpeed();
-        }
+        } */
         transform.position = cameraMove;
     }
     float MoveSpeed()
