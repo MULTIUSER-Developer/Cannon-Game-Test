@@ -27,5 +27,6 @@ public class Aiming : MonoBehaviour
             rb = shot.GetComponent<Rigidbody2D>();
             rb.AddForce(direction * speed);
         }
+
     }
 }
