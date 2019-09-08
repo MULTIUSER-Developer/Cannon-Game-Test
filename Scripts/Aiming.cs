@@ -11,6 +11,12 @@ public class Aiming : MonoBehaviour
 
     public float speed;
 
+    private void Start()
+    {
+        Player = gameObject.Find("canon_barrel_pivot")
+            rb = GetComponent<Rigidbody2D>();
+    }
+
     void Update()
     {
         Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
