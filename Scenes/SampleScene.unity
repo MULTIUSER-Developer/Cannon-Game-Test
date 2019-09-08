@@ -348,8 +348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0.2
-  speed: 20
-  minMaxXPosition: {x: 0, y: 82}
+  speed: 80
+  minMaxXPosition: {x: 13, y: 82}
   minMaxYPosition: {x: 0, y: 0}
 --- !u!20 &519420031
 Camera:
