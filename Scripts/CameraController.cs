@@ -24,7 +24,7 @@ public class CameraController : MonoBehaviour
     }
     // Update is called once per frame
     void Update()
-    {
+    {      
         //Move camera
         if ((Input.mousePosition.x > screenWidth - offset) && transform.position.x < minMaxXPosition.y)
         {
