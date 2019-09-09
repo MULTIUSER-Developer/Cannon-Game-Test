@@ -13,8 +13,6 @@ public class AimingAndShooting : MonoBehaviour
     public float speed;
 
     //--------- Seb Thingies ----------
-    // The maximum number of bullets allowed to exist at one time
-    int maxBulletCount = 1;
     // Serialize Field shows the private value in the unity editor
     [SerializeField]
     // bool to to check if the max bullet count is reached
@@ -71,16 +69,28 @@ public class AimingAndShooting : MonoBehaviour
       transform.rotation = rotation;
     }
 
+    void checkIfBulletExists () {
+      // Check if something with the tag "Bullet" exists
+      if (GameObject.FindWithTag("Bullet")) {
+        // If it does set BulletExists to true
+        BulletExists = true;
+      }
+      else
+      {
+        // If not set it to false
+        BulletExists = false;
+      }
+    }
+
     void FixedUpdate() {
       setRotation();
+      checkIfBulletExists();
     }
 
     void Update()
     {
-        // If the left mouse button is pressed create the object
-        if (Input.GetMouseButtonDown(0))
-        {
-            shoot(getExitPoint(), getRotation(), getDirection());
-        }
+      if (Input.GetMouseButtonDown(0) && !BulletExists) {
+        shoot(getExitPoint(), getRotation(), getDirection());
       }
+    }
 }
