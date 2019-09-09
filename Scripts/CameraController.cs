@@ -1,51 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// © 2017 TheFlyingKeyboard and released under MIT License
-// theflyingkeyboard.net
+
 public class CameraController : MonoBehaviour
 {
-    public float offset;
-    public float speed;
-    //x - min y - max
-    public Vector2 minMaxXPosition;
-    public Vector2 minMaxYPosition;
-    private float screenWidth;
-    private float screenHeight;
-    private Vector3 cameraMove;
-    // Use this for initialization
-    void Start()
+  public Transform startPoint;
+  public GameObject ObjectToFollow;
+  public float speed;
+  public float followSpeed;
+  [SerializeField]
+  private bool BulletExists;
+  [SerializeField]
+  private bool waitTimeOver = true;
+
+  void checkIfBulletExists () {
+    // Check if something with the tag "Bullet" exists
+    if (GameObject.FindWithTag("Bullet")) {
+      // If it does set BulletExists to true
+      BulletExists = true;
+      ObjectToFollow = GameObject.FindWithTag("Bullet");
+    }
+    else
     {
-        screenWidth = Screen.width;
-        screenHeight = Screen.height;
-        cameraMove.x = transform.position.x;
-        cameraMove.y = transform.position.y;
-        cameraMove.z = transform.position.z;
+      // If not set it to false
+      BulletExists = false;
     }
-    // Update is called once per frame
-    void Update()
-    {      
-        //Move camera
-        if ((Input.mousePosition.x > screenWidth - offset) && transform.position.x < minMaxXPosition.y)
-        {
-            cameraMove.x += MoveSpeed();
-        }
-        if ((Input.mousePosition.x < offset) && transform.position.x > minMaxXPosition.x)
-        {
-            cameraMove.x -= MoveSpeed();
-        }
-        /* if ((Input.mousePosition.y > screenHeight - offset) && transform.position.y < minMaxYPosition.y)
-        {
-            cameraMove.y += MoveSpeed();
-        }
-        if ((Input.mousePosition.y < offset) && transform.position.y > minMaxYPosition.x)
-        {
-            cameraMove.y -= MoveSpeed();
-        } */
-        transform.position = cameraMove;
+  }
+
+  void Update()
+  {
+    checkIfBulletExists();
+
+    if (!BulletExists && waitTimeOver && transform.position != startPoint.position) {
+      // Move the camera
+      transform.position = Vector3.MoveTowards(transform.position, startPoint.position, speed * Time.deltaTime);
+    } else if (BulletExists) {
+      transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(ObjectToFollow.transform.position.x, ObjectToFollow.transform.position.y, transform.position.z), followSpeed * Time.deltaTime);
     }
-    float MoveSpeed()
-    {
-        return speed * Time.deltaTime;
-    }
+  }
 }
