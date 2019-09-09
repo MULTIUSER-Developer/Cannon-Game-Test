@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
       // Move the camera
       transform.position = Vector3.MoveTowards(transform.position, startPoint.position, speed * Time.deltaTime);
     } else if (BulletExists) {
-      transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(ObjectToFollow.transform.position.x, ObjectToFollow.transform.position.y, transform.position.z), followSpeed * Time.deltaTime);
+      transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(ObjectToFollow.transform.position.x, transform.position.y, transform.position.z), followSpeed * Time.deltaTime);
     }
   }
 }
