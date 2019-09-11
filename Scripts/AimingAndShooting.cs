@@ -92,5 +92,9 @@ public class AimingAndShooting : MonoBehaviour
       if (Input.GetMouseButtonDown(0) && !BulletExists) {
         shoot(getExitPoint(), getRotation(), getDirection());
       }
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 }
