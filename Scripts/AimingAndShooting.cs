@@ -55,9 +55,19 @@ public class AimingAndShooting : MonoBehaviour
       return direction;
     }
 
+    Vector2 fixDirection() {
+      Vector2 direction = getDirection();
+
+      if (direction.x > 0) {
+        return direction;
+      } else {
+        return -direction;
+      }
+    }
+
     Quaternion getRotation () {
       // Calculate the quaternion (rotation)
-      Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(getDirection().y, getDirection().x) * Mathf.Rad2Deg);
+      Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(fixDirection().y, fixDirection().x) * Mathf.Rad2Deg);
       // Return the rotation variable
       return rotation;
     }
@@ -91,7 +101,10 @@ public class AimingAndShooting : MonoBehaviour
     void Update()
     {
       if (Input.GetMouseButtonDown(0) && !BulletExists) {
-        shoot(getExitPoint(), getRotation(), getDirection());
+        shoot(getExitPoint(), getRotation(), fixDirection());
+      }
+      if(Input.GetMouseButtonDown(1)) {
+        Debug.Log(getDirection());
       }
     }
 }
