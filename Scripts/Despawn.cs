@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Despawn : MonoBehaviour
-{ 
-   // Update is called once per frame
-    void Update()
+{
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject, 4f);
+        if(collision.gameObject.name == "groundcol")
+        {
+            Debug.Log("hit");
+            Destroy(gameObject, 2f);
+        }
     }
 }
