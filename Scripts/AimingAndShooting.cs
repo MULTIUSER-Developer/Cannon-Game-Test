@@ -55,18 +55,29 @@ public class AimingAndShooting : MonoBehaviour
       return direction;
     }
 
+    Vector2 fixDirection() {
+      Vector2 direction = getDirection();
+
+      if (direction.x > 0) {
+        return direction;
+      } else {
+        return -direction;
+      }
+    }
+
     Quaternion getRotation () {
       // Calculate the quaternion (rotation)
-      Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(getDirection().y, getDirection().x) * Mathf.Rad2Deg);
+      Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(fixDirection().y, fixDirection().x) * Mathf.Rad2Deg);
       // Return the rotation variable
       return rotation;
     }
 
     void setRotation () {
-      Quaternion rotation = getRotation();
-
-      // Set the rotation you just calculated to the objects rotation
-      transform.rotation = rotation;
+      Vector3 mouseScreenPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+      Vector3 lookAt = mouseScreenPosition;
+      float AngleRad = Mathf.Atan2(lookAt.y - this.transform.position.y, lookAt.x - this.transform.position.x);
+      float AngleDeg = (180 / Mathf.PI) * AngleRad;
+      this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
     }
 
     void checkIfBulletExists () {
@@ -90,7 +101,10 @@ public class AimingAndShooting : MonoBehaviour
     void Update()
     {
       if (Input.GetMouseButtonDown(0) && !BulletExists) {
-        shoot(getExitPoint(), getRotation(), getDirection());
+        shoot(getExitPoint(), getRotation(), fixDirection());
+      }
+      if(Input.GetMouseButtonDown(1)) {
+        Debug.Log(getDirection());
       }
         if (Input.GetKey("escape"))
         {
