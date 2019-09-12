@@ -106,9 +106,5 @@ public class AimingAndShooting : MonoBehaviour
       if(Input.GetMouseButtonDown(1)) {
         Debug.Log(getDirection());
       }
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
-        }
     }
 }
