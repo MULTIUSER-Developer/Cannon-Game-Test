@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class AimingAndShooting : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class AimingAndShooting : MonoBehaviour
     // Rigidbody called rb
     private Rigidbody2D rb;
     // Speed variable
-    public float speed;
+    //public float speed;
     // Serialize Field shows the private value in the unity editor
     [SerializeField]
     // bool to to check if the max bullet count is reached
@@ -18,7 +19,12 @@ public class AimingAndShooting : MonoBehaviour
     // Pretty self explanatory
     bool IsGamePaused = false;
     public GameObject theCanvas;
-
+    // Get a reference to the slider we want to use as a power meter
+    public Slider PowerMeter;
+    public Transform PowerMeterTransformPoint;
+    public float powerMeterIncrease = 5;
+    public bool powerMeterUp = true;
+    public GameObject PowerMeterGameObject;
 
     void shoot(Vector2 exitPoint, Quaternion rotation, Vector2 direction) {
       // Create the shot using the prefab, exit and rotation calculated and save a reference to the newly created game object
@@ -26,7 +32,8 @@ public class AimingAndShooting : MonoBehaviour
       // Get the rigidbody component of the gameobject
       rb = shot.GetComponent<Rigidbody2D>();
       // Use the rigidbody component to yeet the thingie away
-      rb.AddForce(direction * (speed * 1000));
+      rb.AddForce(direction * (PowerMeter.value * 1000));
+      PowerMeter.value = 0;
     }
 
     Vector2 getTarget () {
@@ -105,13 +112,43 @@ public class AimingAndShooting : MonoBehaviour
       checkIfBulletExists();
     }
 
+    void isTheGamePaused()
+    {
+      IsGamePaused = theCanvas.GetComponent<Pausemenu>().GameIsPaused;
+    }
+
+    void PowerMeterUpOrDown () {
+    if (PowerMeter.value == 0) {
+        powerMeterUp = true;
+      } else if (PowerMeter.value == 10) {
+        powerMeterUp = false;
+      }
+    }
+
+    void MovePowerMeter () {
+      if (powerMeterUp) {
+        PowerMeter.value += powerMeterIncrease * Time.deltaTime;
+      } else {
+        PowerMeter.value -= powerMeterIncrease * Time.deltaTime;
+      }
+    }
+
     void Update()
     {
-      if (Input.GetMouseButtonDown(0) && !BulletExists && !IsGamePaused) {
-        shoot(getExitPoint(), getRotation(), fixDirection());
+      isTheGamePaused();
+
+      if (Input.GetMouseButton(0) && !BulletExists && !IsGamePaused) {
+        PowerMeterUpOrDown();
+        MovePowerMeter();
+        PowerMeterGameObject.SetActive(true);
       }
 
-      IsGamePaused = theCanvas.GetComponent<Pausemenu>().GameIsPaused == true;
+      if (Input.GetMouseButtonUp(0) && !BulletExists && !IsGamePaused) {
+        shoot(getExitPoint(), getRotation(), fixDirection());
+        PowerMeterGameObject.SetActive(false);
+      }
 
+      PowerMeter.transform.rotation = getRotation();
+      PowerMeter.transform.position = PowerMeterTransformPoint.transform.position;
     }
 }
