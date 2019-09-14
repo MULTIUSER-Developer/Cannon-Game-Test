@@ -13,4 +13,9 @@ public class Despawn : MonoBehaviour
             Destroy(gameObject, despawnTime);
         }
     }
+
+     void Update()
+    {
+        
+    }
 }
