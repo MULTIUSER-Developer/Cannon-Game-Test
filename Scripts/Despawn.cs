@@ -28,6 +28,9 @@ public class Despawn : MonoBehaviour
 
     void Update()
     {
+
+        GameObject.Find("ScoreHandler").GetComponent<ScoreScript>().score = Mathf.RoundToInt(transform.position.x);
+
         if (isColliding && collidingObjectName == "groundcol")
         {
             //trans1 = transform;
