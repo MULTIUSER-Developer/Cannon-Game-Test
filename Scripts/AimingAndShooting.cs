@@ -11,12 +11,14 @@ public class AimingAndShooting : MonoBehaviour
     private Rigidbody2D rb;
     // Speed variable
     public float speed;
-
-    //--------- Seb Thingies ----------
     // Serialize Field shows the private value in the unity editor
     [SerializeField]
     // bool to to check if the max bullet count is reached
     private bool BulletExists = false;
+    // Pretty self explanatory
+    bool IsGamePaused = false;
+    public GameObject theCanvas;
+
 
     void shoot(Vector2 exitPoint, Quaternion rotation, Vector2 direction) {
       // Create the shot using the prefab, exit and rotation calculated and save a reference to the newly created game object
@@ -93,6 +95,11 @@ public class AimingAndShooting : MonoBehaviour
       }
     }
 
+    void Start ()
+    {
+      theCanvas = GameObject.Find("Canvas");
+    }
+
     void FixedUpdate() {
       setRotation();
       checkIfBulletExists();
@@ -100,15 +107,11 @@ public class AimingAndShooting : MonoBehaviour
 
     void Update()
     {
-      if (Input.GetMouseButtonDown(0) && !BulletExists) {
+      if (Input.GetMouseButtonDown(0) && !BulletExists && !IsGamePaused) {
         shoot(getExitPoint(), getRotation(), fixDirection());
       }
-      if(Input.GetMouseButtonDown(1)) {
-        Debug.Log(getDirection());
-      }
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
-        }
+
+      IsGamePaused = theCanvas.GetComponent<Pausemenu>().GameIsPaused == true;
+
     }
 }
