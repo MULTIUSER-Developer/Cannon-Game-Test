@@ -25,6 +25,7 @@ public class AimingAndShooting : MonoBehaviour
     public float powerMeterIncrease = 5;
     public bool powerMeterUp = true;
     public GameObject PowerMeterGameObject;
+    private bool LMBDown = false;
 
     void shoot(Vector2 exitPoint, Quaternion rotation, Vector2 direction) {
       // Create the shot using the prefab, exit and rotation calculated and save a reference to the newly created game object
@@ -141,14 +142,15 @@ public class AimingAndShooting : MonoBehaviour
         PowerMeterUpOrDown();
         MovePowerMeter();
         PowerMeterGameObject.SetActive(true);
+      } else {
+        PowerMeterGameObject.SetActive(false);
       }
 
       if (Input.GetMouseButtonUp(0) && !BulletExists && !IsGamePaused) {
         shoot(getExitPoint(), getRotation(), fixDirection());
-        PowerMeterGameObject.SetActive(false);
       }
 
-      PowerMeter.transform.rotation = getRotation();
+      PowerMeter.transform.rotation = transform.rotation;
       PowerMeter.transform.position = PowerMeterTransformPoint.transform.position;
     }
 }
