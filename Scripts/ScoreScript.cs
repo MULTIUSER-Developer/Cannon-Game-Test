@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-//https://www.youtube.com/watch?time_continue=947&v=XOjd_qU2Ido
-
 public class ScoreScript : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public int score = 0;
     public int HighScore = 0;
     public TextMeshProUGUI HighScoreText;
+
+    void Start()
+    {
+        LoadHighScore();
+    }
 
     void SaveHighScore()
     {
