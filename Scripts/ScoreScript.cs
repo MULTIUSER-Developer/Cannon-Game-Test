@@ -12,30 +12,27 @@ public class ScoreScript : MonoBehaviour
     public int HighScore = 0;
     public TextMeshProUGUI HighScoreText;
 
-    public void SaveScore()
+    void SaveHighScore()
     {
-        SaveSystem.SaveData(this);
+        Debug.Log("Saving the HighScore: " + HighScore.ToString());
+        PlayerPrefs.SetInt("HighScore", HighScore);
     }
 
-    public void LoadData()
+    void LoadHighScore()
     {
-        HighScore = SaveSystem.LoadData().HighScore;
-    }
-
-    void Start()
-    {
-        
+        HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        HighScoreText.text = HighScore.ToString();
+        Debug.Log("Loading the value: " + HighScore.ToString());
     }
 
     void Update()
     {
         scoreText.text = score.ToString();
-        
-        if (score >= HighScore)
+
+        if (score > HighScore)
         {
             HighScore = score;
             HighScoreText.text = HighScore.ToString();
-            SaveScore();
         }
     }
 

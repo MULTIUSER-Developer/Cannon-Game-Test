@@ -33,17 +33,12 @@ public class Despawn : MonoBehaviour
 
         if (isColliding && collidingObjectName == "groundcol")
         {
-            //trans1 = transform;
             TimeOnGround += 1 * Time.deltaTime;
-            //Debug.Log(TimeOnGround);
-            //Debug.Log("hit");
         }
         if (TimeOnGround >= TimeOnGroundBeforeDespawnTime)
         {
             trans2 = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             TimeOnGround = 0;
-            Debug.Log("Trans1: " + trans1);
-            Debug.Log("Trans2: " + trans2);
         }
         else if (TimeOnGround <= TimeOnGroundBeforeDespawnTime / 2)
         {
